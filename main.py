@@ -1,5 +1,7 @@
 from tkinter import *
 import random
+from pathlib import Path
+import sys
 
 Motivations = [
     "You are capable of achieving great things.",
@@ -65,6 +67,15 @@ Motivations = [
     "You have the power to make a difference in the lives of those who need it", ]
 
 
+def GetResource(path):
+    try:
+        base_path = Path(sys._MEIPASS)
+    except AttributeError:
+        return path
+    else:
+        return base_path.joinpath(path)
+
+
 def ChangeMotivation():
     if RefreshButton.cget('text') == "Begin":
         RefreshButton.config(text="Refresh")
@@ -79,7 +90,8 @@ root = Tk()
 root.resizable(0, 0)
 root.title("")
 root.geometry("500x250")
-root.iconbitmap("heart.ico")
+IconPath = GetResource(r".\heart.ico")
+root.iconbitmap(IconPath)
 
 Text = Label(text="You matter", font=("Arial", 18), wraplength=450)
 Text.place(relx=0.5,
